@@ -1,0 +1,4 @@
+added_files=$(git diff --name-only --cached --diff-filter=d)
+
+yarn lintfix
+git add ${added_files}
