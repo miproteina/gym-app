@@ -34,11 +34,9 @@
             <ion-list>
               <ion-item v-for="(item, index) in exercises" :key="index">
                 <ion-label>{{ item.name }}</ion-label>
-                <template #end>
-                  <ion-thumbnail>
-                    <ion-img :src="assetsPath(item.$id)" />
-                  </ion-thumbnail>
-                </template>
+                <ion-thumbnail>
+                  <ion-img :src="assetsPath(item.$id)" />
+                </ion-thumbnail>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -49,8 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useIonRouter } from '@ionic/vue'
+import { computed, type ComputedRef } from 'vue'
+import { useIonRouter, onIonViewWillEnter } from '@ionic/vue'
 import { useUserStore } from '~/stores/userStore'
 import { assetsPath } from '@/utils/utils'
 import type { ExerciseInterface } from '@/utils/types'
@@ -60,7 +58,7 @@ const router = useIonRouter()
 
 //computed
 const userData = computed(() => userStore.user)
-const exercises: ExerciseInterface[] | null = computed(() => exerciseStore.exercises)
+const exercises: ComputedRef<ExerciseInterface[] | null> = computed(() => exerciseStore.exercises)
 
 //methods
 
@@ -71,6 +69,7 @@ const logout = () => {
 
 const syncData = () => {
   console.log('Sincronizando datos...')
+  exerciseStore.fetchExercises()
   // Lógica para sincronizar datos
 }
 
@@ -78,14 +77,10 @@ useHead({
   title: `Dashboard - ${useRuntimeConfig().public.appName}`,
 })
 
-onMounted(async () => {
-  console.log(userData.value)
-  if (!userData.value) {
-    console.log('No hay sesión actual, iniciando sesión...')
-    await userStore.getCurrentSession()
+onIonViewWillEnter(async () => {
+  if (!userStore.current) {
+    router.push('/login')
   }
-
-  exerciseStore.fetch()
 })
 </script>
 

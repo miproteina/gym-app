@@ -9,18 +9,21 @@ export const useExerciseStore = defineStore(
   () => {
     const exercises = ref<ExerciseInterface[] | null>(null)
 
-    const fetch = async (queryLimit: number = 10): Promise<void> => {
+    const fetchExercises = async (queryLimit: number = 10): Promise<void> => {
+      console.debug('Fetching exercises...')
       const response = await database.listDocuments(databaseId, exercisesDatabaseId, [
         Query.orderDesc('$createdAt'),
         Query.limit(queryLimit),
       ])
+
+      console.debug('Exercises fetched successfully', response)
 
       exercises.value = response.documents as ExerciseInterface[]
     }
 
     return {
       exercises,
-      fetch,
+      fetchExercises,
     }
   },
   { persist: true }

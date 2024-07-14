@@ -36,7 +36,8 @@ import AuthForm from '@/components/organisms/authForm.vue'
 import { AppwriteException } from 'appwrite'
 import { useUserStore } from '@/stores/userStore'
 
-const store = useUserStore()
+const userStore = useUserStore()
+const exerciseStore = useExerciseStore()
 const router = useRouter()
 const isSignUp = ref(false)
 const error = ref<string | null>(null)
@@ -47,9 +48,11 @@ const handleLogin = async (event: Event) => {
   const formData = new FormData(form)
 
   try {
-    await store.login(formData.get('email') as string, formData.get('password') as string)
+    await userStore.login(formData.get('email') as string, formData.get('password') as string)
     form.reset()
     error.value = null
+    userStore.getCurrentUser()
+    exerciseStore.fetchExercises()
     await router.push('/')
   } catch (e) {
     error.value = 'Error logging in. Please check your credentials.'
@@ -62,7 +65,7 @@ const handleRegistration = async (event: Event) => {
   const formData = new FormData(form)
 
   try {
-    await store.register(
+    await userStore.register(
       formData.get('email') as string,
       formData.get('password') as string,
       formData.get('name') as string

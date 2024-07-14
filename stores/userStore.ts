@@ -55,6 +55,7 @@ export const useUserStore = defineStore(
       try {
         await account.deleteSession('current') // Delete Appwrite user session
         current.value = null // Clear current session
+        user.value = null
       } catch (e) {
         console.error('Logout failed:', e)
         throw e // Re-throw the error for further handling
