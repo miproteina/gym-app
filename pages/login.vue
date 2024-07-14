@@ -15,14 +15,22 @@
             submit-type="Sign Up"
             :error="error"
           />
-          <AuthForm v-else :handle-submit="handleLogin" submit-type="Log In" :error="error" />
-          <button class="mt-4 text-blue-500 hover:underline" @click="toggleAuthMode">
-            {{
-              isSignUp
-                ? '¿Ya tienes una cuenta? Inicia sesión'
-                : '¿No tienes una cuenta? Regístrate'
-            }}
-          </button>
+          <AuthForm
+            v-else
+            :handle-submit="handleLogin"
+            submit-type="Log In"
+            :error="error"
+            @submit="handleLogin"
+          />
+          <div class="mt-3">
+            <a href="#" class="text-blue-500 hover:underline" @click="toggleAuthMode">
+              {{
+                isSignUp
+                  ? '¿Ya tienes una cuenta? Inicia sesión'
+                  : '¿No tienes una cuenta? Regístrate'
+              }}
+            </a>
+          </div>
         </section>
       </div>
     </ion-content>
@@ -43,6 +51,7 @@ const isSignUp = ref(false)
 const error = ref<string | null>(null)
 
 const handleLogin = async (event: Event) => {
+  console.log(event)
   event.preventDefault()
   const form = event.target as HTMLFormElement
   const formData = new FormData(form)

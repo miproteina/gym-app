@@ -1,6 +1,7 @@
 import type { DefineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
+  css: ['~/assets/css/tailwind.css'],
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/ionic',
@@ -15,6 +16,10 @@ export default defineNuxtConfig({
       sameSite: 'strict',
     },
     storage: 'localStorage',
+  },
+  tailwindcss: {
+    configPath: 'tailwind.config',
+    viewer: true,
   },
   ssr: false,
   runtimeConfig: {
