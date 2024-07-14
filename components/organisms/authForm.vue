@@ -30,13 +30,14 @@
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       />
     </div>
-    <ion-button expand="full" type="submit">{{ submitType }}</ion-button>
+    <Button :label="submitType" color="primary" shape="rounded" type="submit" />
     <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
   </form>
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
+import Button from '~/components/atoms/Button/Button.vue'
 
 defineProps<{
   handleSubmit: (event: Event) => void
