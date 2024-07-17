@@ -1,5 +1,8 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "nuxt-app",
-  "webDir": "dist"
+  "appName": "gymApp",
+  "webDir": "dist",
+  "ios": {
+    "scheme": "App"
+  }
 }
