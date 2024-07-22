@@ -11,20 +11,19 @@
         :value="value"
         :aria-invalid="error ? 'true' : 'false'"
         :aria-describedby="error ? errorId : null"
-        @ionInput="handleInput"
-        @ionBlur="handleBlur"
         class="input-block__input"
-      ></ion-input>
+        @ion-input="handleInput"
+        @ion-blur="handleBlur"
+      />
     </div>
     <span v-if="error" :id="errorId" class="input-block__error">{{ error }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-import { ref } from 'vue';
+import { defineProps, defineEmits, ref } from 'vue'
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     required: true,
@@ -40,6 +39,7 @@ const props = defineProps({
   placeholder: {
     type: String,
     required: false,
+    default: 'text',
   },
   value: {
     type: String,
@@ -53,21 +53,21 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
-});
+})
 
-const emits = defineEmits(['update:value', 'input', 'blur']);
-const labelId = ref(`input-label-${Math.random().toString(36).substr(2, 9)}`);
-const errorId = ref(`input-error-${Math.random().toString(36).substr(2, 9)}`);
+const emits = defineEmits(['update:value', 'input', 'blur'])
+const labelId = ref(`input-label-${Math.random().toString(36).substr(2, 9)}`)
+const errorId = ref(`input-error-${Math.random().toString(36).substr(2, 9)}`)
 
 const handleInput = (event: Event) => {
-  const input = event.target as HTMLInputElement;
-  emits('update:value', input.value);
-  emits('input', event);
-};
+  const input = event.target as HTMLInputElement
+  emits('update:value', input.value)
+  emits('input', event)
+}
 
 const handleBlur = (event: Event) => {
-  emits('blur', event);
-};
+  emits('blur', event)
+}
 </script>
 
 <style scoped>
@@ -115,8 +115,6 @@ const handleBlur = (event: Event) => {
 }
 
 .input-block__error {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
+  @apply text-red-500 text-sm mt-2;
 }
 </style>

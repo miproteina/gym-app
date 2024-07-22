@@ -6,24 +6,6 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-<<<<<<< HEAD
-      <p>¡Bienvenido a la página inicial de tu aplicación!</p>
-      <p>Aquí puedes comenzar a construir tu contenido.</p>
-      <Button label=""> hola </Button>
-  <div>
-    <InputField
-      label="Username"
-      icon="person"
-      placeholder="Enter your username"
-      :value="username"
-      :error="usernameError"
-      @update:value="onUpdateUsername"
-      @input="onInputUsername"
-      @blur="onBlurUsername"
-    />
-  </div>
-
-=======
       <ion-grid>
         <ion-row>
           <ion-col size="12">
@@ -60,41 +42,11 @@
           </ion-col>
         </ion-row>
       </ion-grid>
->>>>>>> main
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-<<<<<<< HEAD
-import InputField from '~/components/atoms/InputField/InputField.vue';
-
-const username = ref('');
-const usernameError = ref('');
-
-const onUpdateUsername = (value: string) => {
-  username.value = value;
-};
-
-const onInputUsername = (event: Event) => {
-  console.log('Input event:', event);
-};
-
-const onBlurUsername = (event: Event) => {
-  console.log('Blur event:', event);
-  // Add your validation logic here
-  if (username.value === '') {
-    usernameError.value = 'Username is required';
-  } else {
-    usernameError.value = '';
-  }
-};
-
-
-defineProps({
-  // Puedes definir props aquí si es necesario
-})
-=======
 import { computed, type ComputedRef } from 'vue'
 import { useIonRouter, onIonViewWillEnter } from '@ionic/vue'
 import { useUserStore } from '~/stores/userStore'
@@ -120,7 +72,6 @@ const syncData = () => {
   exerciseStore.fetchExercises()
   // Lógica para sincronizar datos
 }
->>>>>>> main
 
 useHead({
   title: `Dashboard - ${useRuntimeConfig().public.appName}`,
