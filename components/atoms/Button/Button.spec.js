@@ -8,7 +8,7 @@ describe('Button.vue', () => {
     const wrapper = mount(Button, {
       props: { label },
     })
-    expect(wrapper.text()).toMatch(label)
+    expect(wrapper.text()).toContain(label)
   })
 
   it('applies the correct color', () => {
@@ -16,13 +16,28 @@ describe('Button.vue', () => {
     const wrapper = mount(Button, {
       props: { color, label: 'Submit' },
     })
-    expect(wrapper.find('ion-button').attributes('color')).toBe(color)
+    expect(wrapper.find('ion-button').classes()).toContain(color)
   })
 
   it('disables the button when disabled prop is true', () => {
     const wrapper = mount(Button, {
       props: { disabled: true, label: 'Submit' },
     })
-    expect(wrapper.find('ion-button').attributes('disabled')).toBe('true')
+    expect(wrapper.find('ion-button').attributes('disabled')).toBeDefined()
+  })
+
+  it('shows loading spinner when loading prop is true', () => {
+    const wrapper = mount(Button, {
+      props: { loading: true, label: 'Submit' },
+    })
+    expect(wrapper.find('.spinner').exists()).toBe(true)
+  })
+
+  it('emits click event when button is clicked', async () => {
+    const wrapper = mount(Button, {
+      props: { label: 'Submit' },
+    })
+    await wrapper.trigger('click')
+    expect(wrapper.emitted()).toHaveProperty('click')
   })
 })

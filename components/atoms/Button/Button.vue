@@ -2,12 +2,12 @@
   <ion-button :class="buttonClasses" :disabled="disabled" @click="handleClick">
     <span v-if="loading" class="spinner" />
     <ion-icon v-if="icon && !loading" :name="icon" class="mr-2" />
-    {{ label }}
+    <span v-if="!loading">{{ label }}</span>
   </ion-button>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   label: {
@@ -36,7 +36,7 @@ const props = defineProps({
   },
   shape: {
     type: String,
-    default: 'rounded', // 'square' or 'rounded'
+    default: 'square', // 'square' or 'rounded'
   },
 })
 
@@ -48,18 +48,14 @@ const handleClick = () => {
   }
 }
 
-const buttonClasses = ref(
-  `ion-button ${props.color} ${props.size} ${props.shape} ${props.loading ? 'loading' : ''}`
-)
+const buttonClasses = computed(() => {
+  return [`ion-button`, props.color, props.size, props.shape, { loading: props.loading }]
+})
 </script>
 
 <style scoped lang="scss">
-/* Tailwind CSS classes */
 .ion-button {
-  @apply w-full;
-}
-.ion-button::part(native) {
-  @apply flex items-center justify-center transition ease-in-out duration-150;
+  @apply flex items-center justify-center transition ease-in-out duration-150 w-full;
 
   &.primary {
     @apply bg-blue-950 text-white hover:bg-blue-600;
@@ -86,8 +82,8 @@ const buttonClasses = ref(
   &.loading {
     @apply cursor-not-allowed opacity-50;
   }
-  &.spinner {
-    @apply animate-spin border-2 border-t-transparent border-white rounded-full h-4 w-4;
-  }
+}
+.spinner {
+  @apply animate-spin border-2 border-t-transparent border-white rounded-full h-4 w-4;
 }
 </style>
