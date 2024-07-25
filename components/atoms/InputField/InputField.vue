@@ -7,6 +7,7 @@
         :aria-labelledby="labelId"
         :icon="icon"
         :placeholder="placeholder"
+        :type="type"
         :disabled="disabled"
         :value="value"
         :aria-invalid="error ? 'true' : 'false'"
@@ -22,6 +23,7 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from 'vue'
+import type { TextFieldTypes } from '@ionic/core'
 
 defineProps({
   label: {
@@ -33,7 +35,7 @@ defineProps({
     default: 'empty',
   },
   type: {
-    type: String,
+    type: String as () => TextFieldTypes,
     default: 'text',
   },
   placeholder: {
