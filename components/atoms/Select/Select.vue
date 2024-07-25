@@ -56,6 +56,7 @@ export default {
       default: false,
     },
   },
+  emits: ['change'],
   data() {
     return {
       selectedValue: this.value || (this.multiple ? [] : ''),
@@ -88,13 +89,19 @@ export default {
   margin-bottom: 8px;
 }
 
+.select-component__select {
+  border-radius: 25px;
+  border: 2px solid #00000060;
+  padding: 5px;
+}
+
 .select-component__select--disabled {
   background-color: #f5f5f5;
   cursor: not-allowed;
 }
 
 .select-component__select--error {
-  border-color: #ff4d4f;
+  border-color: #be1e1e;
 }
 
 .select-component__select:focus {
