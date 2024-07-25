@@ -57,33 +57,34 @@ const buttonClasses = computed(() => {
 .ion-button {
   @apply flex items-center justify-center transition ease-in-out duration-150 w-full;
 
-  &.primary {
+  &--primary {
     @apply bg-blue-950 text-white hover:bg-blue-600;
   }
-  &.secondary {
+  &--secondary {
     @apply bg-gray-500 text-white hover:bg-gray-600;
   }
   /* Add styles for other types as needed */
-  &.medium {
+  &--medium {
     @apply text-base;
   }
-  &.small {
+  &--small {
     @apply text-sm;
   }
-  &.large {
+  &--large {
     @apply text-lg;
   }
-  &.rounded {
+  &--rounded {
     @apply rounded-full;
   }
-  &.square {
+  &--square {
     @apply rounded-none;
   }
-  &.loading {
+  &--loading {
     @apply cursor-not-allowed opacity-50;
   }
 }
-.spinner {
+
+.ion-button__spinner {
   @apply animate-spin border-2 border-t-transparent border-white rounded-full h-4 w-4;
 }
 </style>

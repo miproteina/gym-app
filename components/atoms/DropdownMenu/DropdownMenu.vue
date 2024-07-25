@@ -34,6 +34,7 @@ export default {
       default: '',
     },
   },
+  emits: ['select'],
   data() {
     return {
       dropdownId: `dropdown-${Math.random().toString(36).substr(2, 9)}`,

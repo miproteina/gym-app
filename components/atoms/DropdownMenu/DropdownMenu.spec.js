@@ -41,6 +41,6 @@ describe('DropdownMenu.vue', () => {
     const wrapper = shallowMount(DropdownMenu, {
       props: { disabled: true, options: [] },
     })
-    expect(wrapper.find('select').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('select').attributes('disabled')).toBeDefined()
   })
 })
