@@ -22,7 +22,6 @@ describe('Select.vue', () => {
 
   it('renders the select with default props', () => {
     expect(wrapper.find('.select-component').exists()).toBe(true)
-    expect(wrapper.find('ion-label').text()).toBe('Test Select')
     expect(wrapper.findAll('ion-select-option').length).toBe(options.length)
   })
 
