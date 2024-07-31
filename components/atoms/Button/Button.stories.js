@@ -42,7 +42,7 @@ const Template = args => ({
   setup() {
     return { args }
   },
-  template: '<div class="ion-padding"><Button v-bind="args" /></div>',
+  template: '<Button v-bind="args" />',
 })
 
 export const Primary = Template.bind({})
@@ -50,7 +50,7 @@ Primary.args = {
   label: 'Primary',
   color: 'primary',
   size: 'medium',
-  shape: 'rounded',
+  shape: 'square',
   disabled: false,
   loading: false,
 }
@@ -60,7 +60,7 @@ Secondary.args = {
   label: 'Cancel',
   color: 'secondary',
   size: 'medium',
-  shape: 'rounded',
+  shape: 'square',
   disabled: false,
   loading: false,
 }
@@ -70,7 +70,7 @@ Disabled.args = {
   label: 'Submit',
   color: 'primary',
   size: 'medium',
-  shape: 'rounded',
+  shape: 'square',
   disabled: true,
   loading: false,
 }
@@ -80,7 +80,7 @@ Loading.args = {
   label: 'Loading',
   color: 'primary',
   size: 'medium',
-  shape: 'rounded',
+  shape: 'square',
   disabled: false,
   loading: true,
 }
@@ -88,10 +88,10 @@ Loading.args = {
 export const WithIcon = Template.bind({})
 WithIcon.args = {
   label: 'Save',
-  icon: 'save',
+  icon: 'save', // Make sure this is a valid icon name
   color: 'primary',
   size: 'medium',
-  shape: 'rounded',
+  shape: 'square',
   disabled: false,
   loading: false,
 }
