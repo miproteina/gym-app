@@ -1,9 +1,10 @@
 <template>
   <div class="select-component">
     <ion-item>
-      <ion-label>{{ label }}</ion-label>
       <ion-select
         v-model="selectedValue"
+        justify="space-between"
+        interface="popover"
         :multiple="multiple"
         :disabled="disabled"
         :aria-disabled="disabled"
@@ -85,14 +86,12 @@ export default {
   flex-direction: column;
 }
 
-.select-component__label {
-  margin-bottom: 8px;
-}
-
 .select-component__select {
-  border-radius: 25px;
+  border-radius: 12px;
   border: 2px solid #00000060;
-  padding: 5px;
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 25px;
 }
 
 .select-component__select--disabled {
@@ -101,7 +100,7 @@ export default {
 }
 
 .select-component__select--error {
-  border-color: #be1e1e;
+  border-color: #f02f2f;
 }
 
 .select-component__select:focus {

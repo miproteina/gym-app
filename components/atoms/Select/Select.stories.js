@@ -9,7 +9,6 @@ export default {
     placeholder: { control: 'text' },
     value: { control: 'text' },
     disabled: { control: 'boolean' },
-    label: { control: 'text' },
     error: { control: 'boolean' },
   },
 }
@@ -24,7 +23,6 @@ const Template = args => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  label: 'Select an option',
   options: [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2' },
