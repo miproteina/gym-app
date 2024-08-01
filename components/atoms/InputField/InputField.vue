@@ -82,7 +82,11 @@ const handleBlur = (event: Event) => {
 }
 
 .input-block__input-wrapper {
-  /* Element styles for input wrapper */
+  border-radius: 10px;
+  border: 2px solid #00000060;
+  margin-top: 10px;
+  padding: 1px;
+  padding-left: 10px;
 }
 
 .input-block__input {
