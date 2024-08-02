@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     '@storybook/addon-themes',
     '@storybook/addon-postcss',
   ],
+  staticDirs: ['./public'],
   framework: {
     name: '@storybook/vue3-vite',
     options: {},
