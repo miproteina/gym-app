@@ -82,28 +82,22 @@ export default {
 
 <style scoped>
 .select-component {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 }
 
 .select-component__select {
-  border-radius: 12px;
-  border: 2px solid #00000060;
-  padding: 2px;
-  padding-left: 10px;
-  padding-right: 25px;
+  @apply rounded-lg border-2 border-black/60 p-0.5 pl-2.5 pr-6;
 }
 
 .select-component__select--disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+  @apply border-slate-400 cursor-not-allowed;
 }
 
 .select-component__select--error {
-  border-color: #f02f2f;
+  @apply border-red-400;
 }
 
 .select-component__select:focus {
-  border-color: #40a9ff;
+  @apply border-blue-300;
 }
 </style>
