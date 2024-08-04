@@ -1,20 +1,20 @@
 <template>
   <div class="space-y-4">
     <div v-if="submitType === 'Sign Up'" class="mb-4">
+      <Input v-model="name" type="text" placeholder="Name" name="name" required label="Name" />
+    </div>
+    <div class="mb-4">
+      <Input v-model="email" placeholder="Email" type="email" name="email" label="Email" required />
+    </div>
+    <div v-if="submitType !== 'Reset Password'" class="mb-4">
       <Input
-        v-model="name"
-        type="text"
-        name="name"
+        v-model="password"
+        placeholder="Password"
+        type="password"
+        name="password"
         required
-        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        label="Name"
+        label="Password"
       />
-    </div>
-    <div class="mb-4">
-      <Input v-model="email" type="email" name="email" label="Email" required />
-    </div>
-    <div class="mb-4">
-      <Input v-model="password" type="password" name="password" required label="Password" />
     </div>
 
     <Button color="primary" shape="rounded" type="submit" :label="submitType" @click="submitForm" />

@@ -62,6 +62,15 @@ export const useUserStore = defineStore(
       }
     }
 
+    const resetPassword = async (email: string): Promise<void> => {
+      try {
+        await account.createRecovery(email, 'http://localhost:3000/login')
+      } catch (e) {
+        console.error('Reset password failed:', e)
+        throw e // Re-throw the error for further handling
+      }
+    }
+
     /**
      * Retrieves the current user's data.
      * @returns - The current user data.
@@ -97,6 +106,7 @@ export const useUserStore = defineStore(
       register,
       login,
       logout,
+      resetPassword,
       getCurrentUser,
       getCurrentSession,
     }
