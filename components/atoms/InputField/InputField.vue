@@ -9,7 +9,7 @@
         :placeholder="placeholder"
         :type="type"
         :disabled="disabled"
-        :value="value"
+        :value="modelValue"
         :aria-invalid="error ? 'true' : 'false'"
         :aria-describedby="error ? errorId : null"
         class="input-block__input"
@@ -43,7 +43,7 @@ defineProps({
     required: false,
     default: 'text',
   },
-  value: {
+  modelValue: {
     type: String,
     required: true,
   },
@@ -57,13 +57,13 @@ defineProps({
   },
 })
 
-const emits = defineEmits(['update:value', 'input', 'blur'])
+const emits = defineEmits(['update:modelValue', 'input', 'blur'])
 const labelId = ref(`input-label-${Math.random().toString(36).substr(2, 9)}`)
 const errorId = ref(`input-error-${Math.random().toString(36).substr(2, 9)}`)
 
 const handleInput = (event: Event) => {
   const input = event.target as HTMLInputElement
-  emits('update:value', input.value)
+  emits('update:modelValue', input.value)
   emits('input', event)
 }
 

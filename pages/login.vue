@@ -23,13 +23,17 @@
             @submit="handleLogin"
           />
           <div class="mt-3">
-            <a href="#" class="text-blue-500 hover:underline" @click="toggleAuthMode">
-              {{
+            <Button
+              color="primary"
+              shape="rounded"
+              type="submit"
+              :label="
                 isSignUp
                   ? '¿Ya tienes una cuenta? Inicia sesión'
                   : '¿No tienes una cuenta? Regístrate'
-              }}
-            </a>
+              "
+              @click="toggleAuthMode"
+            />
           </div>
         </section>
       </div>
@@ -41,6 +45,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AuthForm from '@/components/organisms/authForm.vue'
+import Button from '@/components/atoms/Button/Button.vue'
 import { AppwriteException } from 'appwrite'
 import { useUserStore } from '@/stores/userStore'
 
@@ -50,15 +55,11 @@ const router = useRouter()
 const isSignUp = ref(false)
 const error = ref<string | null>(null)
 
-const handleLogin = async (event: Event) => {
-  console.log(event)
-  event.preventDefault()
-  const form = event.target as HTMLFormElement
-  const formData = new FormData(form)
+const handleLogin = async (data: { email: string; password: string }) => {
+  console.log(data)
 
   try {
-    await userStore.login(formData.get('email') as string, formData.get('password') as string)
-    form.reset()
+    await userStore.login(data.email, data.password)
     error.value = null
     userStore.getCurrentUser()
     exerciseStore.fetchExercises()

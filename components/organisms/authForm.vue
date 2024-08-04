@@ -1,46 +1,34 @@
 <template>
-  <form class="space-y-4" @submit="handleSubmit">
+  <div class="space-y-4">
     <div v-if="submitType === 'Sign Up'" class="mb-4">
-      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-      <input
+      <Input
         v-model="name"
         type="text"
         name="name"
         required
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        label="Name"
       />
     </div>
     <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-      <input
-        v-model="email"
-        type="email"
-        name="email"
-        required
-        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      />
+      <Input v-model="email" type="email" name="email" label="Email" required />
     </div>
     <div class="mb-4">
-      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-      <input
-        v-model="password"
-        type="password"
-        name="password"
-        required
-        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      />
+      <Input v-model="password" type="password" name="password" required label="Password" />
     </div>
-    <Button :label="submitType" color="primary" shape="rounded" type="submit" />
+
+    <Button color="primary" shape="rounded" type="submit" :label="submitType" @click="submitForm" />
     <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
-  </form>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
 import Button from '~/components/atoms/Button/Button.vue'
+import Input from '~/components/atoms/InputField/InputField.vue'
 
-defineProps<{
-  handleSubmit: (event: Event) => void
+const props = defineProps<{
+  handleSubmit: (data: { name: string; email: string; password: string }) => void
   submitType: string
   error: string | null
 }>()
@@ -48,6 +36,10 @@ defineProps<{
 const name = ref('')
 const email = ref('')
 const password = ref('')
+
+const submitForm = () => {
+  props.handleSubmit({ name: name.value, email: email.value, password: password.value })
+}
 </script>
 
 <style scoped>
