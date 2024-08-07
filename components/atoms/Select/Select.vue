@@ -1,26 +1,23 @@
 <template>
   <div class="select-component">
-    <ion-item>
-      <ion-select
-        v-model="selectedValue"
-        justify="space-between"
-        interface="popover"
-        :multiple="multiple"
-        :disabled="disabled"
-        :aria-disabled="disabled"
-        class="select-component__select"
-        :class="{
-          'select-component__select--disabled': disabled,
-          'select-component__select--error': error,
-        }"
-        :placeholder="placeholder"
-        @ion-change="handleChange"
-      >
-        <ion-select-option v-for="option in options" :key="option.value" :value="option.value">
-          {{ option.label }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+    <ion-select
+      v-model="selectedValue"
+      justify="space-between"
+      :multiple="multiple"
+      :disabled="disabled"
+      :aria-disabled="disabled"
+      class="select-component__select"
+      :class="{
+        'select-component__select--disabled': disabled,
+        'select-component__select--error': error,
+      }"
+      :placeholder="placeholder"
+      @ion-change="handleChange"
+    >
+      <ion-select-option v-for="option in options" :key="option.value" :value="option.value">
+        {{ option.label }}
+      </ion-select-option>
+    </ion-select>
   </div>
 </template>
 
@@ -73,8 +70,7 @@ export default {
   },
   methods: {
     handleChange(event) {
-      this.selectedValue = event.detail.value
-      this.$emit('change', this.selectedValue)
+      this.$emit('change', event.target.selectedValue)
     },
   },
 }

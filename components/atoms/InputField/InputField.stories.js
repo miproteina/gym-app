@@ -43,7 +43,7 @@ export const Text = Template.bind({})
 Text.args = {
   label: 'Test',
   type: 'text',
-  placeholder: 'text',
+  placeholder: 'Testing placeholder',
   value: 'text',
   disabled: false,
   error: '',
