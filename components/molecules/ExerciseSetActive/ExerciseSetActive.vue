@@ -1,9 +1,21 @@
 <template>
   <div class="exercise-set-active">
-    <Input v-model="firstNumber" :disabled="!edit" type="number" placeholder="Set" />
+    <Input
+      v-model="firstNumber"
+      :disabled="!edit"
+      type="number"
+      placeholder="Set"
+      @input="validateInteger($event, 'firstNumber')"
+    />
     <span class="exercise-set-active__text">{{ text }}</span>
     <Input v-model="secondNumber" :disabled="!edit" type="number" placeholder="Kg" />
-    <Input v-model="thirdNumber" :disabled="!edit" type="number" placeholder="Reps" />
+    <Input
+      v-model="thirdNumber"
+      :disabled="!edit"
+      type="number"
+      placeholder="Reps"
+      @input="validateInteger($event, 'thirdNumber')"
+    />
     <Checkbox v-model="checked" :disabled="edit" />
   </div>
 </template>
@@ -28,6 +40,22 @@ const firstNumber = ref('') //set
 const secondNumber = ref('') //kg
 const thirdNumber = ref('') //reps
 const checked = ref<boolean>(false)
+
+function validateInteger(event: Event, field: 'firstNumber' | 'thirdNumber') {
+  const input = event.target as HTMLInputElement
+  const value = input.value.replace(/e/gi, '') // Remove 'E' from input
+
+  // Parse and round the value if it's a valid number
+  const numericValue = isNaN(parseFloat(value)) ? '' : Math.round(parseFloat(value)).toString()
+
+  // Update the input and corresponding field
+  input.value = numericValue
+  if (field === 'firstNumber') {
+    firstNumber.value = numericValue
+  } else if (field === 'thirdNumber') {
+    thirdNumber.value = numericValue
+  }
+}
 </script>
 
 <style scoped>

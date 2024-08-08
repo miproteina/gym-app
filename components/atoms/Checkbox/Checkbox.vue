@@ -6,7 +6,9 @@
       :aria-labelledby="labelId"
       @ion-change="handleChange"
     />
-    <label :id="labelId" :for="checkboxId" class="checkbox-block__label">{{ label }}</label>
+    <label v-if="label" :id="labelId" :for="checkboxId" class="checkbox-block__label">{{
+      label
+    }}</label>
   </div>
 </template>
 

@@ -3,6 +3,14 @@ import SelectField from './Select.vue'
 export default {
   title: 'Atoms/SelectField',
   component: SelectField,
+  argTypes: {
+    options: { control: 'array' },
+    multiple: { control: 'boolean' },
+    placeholder: { control: 'text' },
+    value: { control: 'text' },
+    disabled: { control: 'boolean' },
+    error: { control: 'boolean' },
+  },
 }
 
 const Template = args => ({
