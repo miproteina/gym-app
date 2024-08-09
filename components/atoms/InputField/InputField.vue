@@ -28,7 +28,6 @@ import type { TextFieldTypes } from '@ionic/core'
 defineProps({
   label: {
     type: String,
-    required: true,
   },
   icon: {
     type: String,
@@ -41,7 +40,6 @@ defineProps({
   placeholder: {
     type: String,
     required: false,
-    default: 'text',
   },
   modelValue: {
     type: String,
@@ -84,13 +82,13 @@ const handleBlur = (event: Event) => {
 .input-block__input-wrapper {
   border-radius: 10px;
   border: 2px solid #00000060;
-  margin-top: 10px;
-  padding: 1px;
   padding-left: 10px;
 }
 
 .input-block__input {
   /* Element styles for input */
+  font-size: 1rem; /* Ensure input text size */
+  min-width: 4ch; /* Ensure input field is wide enough */
 }
 
 .input-block__input--disabled {
@@ -122,5 +120,11 @@ const handleBlur = (event: Event) => {
 
 .input-block__error {
   @apply text-red-500 text-sm mt-2;
+}
+
+@media (max-width: 480px) {
+  .input-block__input {
+    font-size: 0.8rem; /* Smaller size for small screens */
+  }
 }
 </style>

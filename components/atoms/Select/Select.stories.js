@@ -18,7 +18,8 @@ const Template = args => ({
   setup() {
     return { args }
   },
-  template: '<div class="ion-padding"><SelectField v-bind="args" />',
+  template: '<SelectField v-bind="args" @select="action" />',
+  methods: { action: value => console.log(value) },
 })
 
 export const Default = Template.bind({})
@@ -29,7 +30,6 @@ Default.args = {
     { label: 'Option 3', value: '3' },
   ],
   placeholder: 'Choose...',
-  value: '',
   multiple: false,
   disabled: false,
   error: false,
@@ -44,7 +44,6 @@ Disabled.args = {
     { label: 'Option 3', value: '3' },
   ],
   placeholder: 'Choose...',
-  value: '',
   multiple: false,
   disabled: true,
   error: false,
@@ -59,7 +58,6 @@ Multiple.args = {
     { label: 'Option 3', value: '3' },
   ],
   placeholder: 'Choose...',
-  value: [],
   multiple: true,
   disabled: false,
   error: false,
