@@ -36,7 +36,7 @@ const props = defineProps({
   },
   shape: {
     type: String,
-    default: 'square', // 'square' or 'rounded'
+    default: 'rounded',
   },
 })
 
@@ -48,43 +48,47 @@ const handleClick = () => {
   }
 }
 
-const buttonClasses = computed(() => {
-  return [`ion-button`, props.color, props.size, props.shape, { loading: props.loading }]
-})
+const buttonClasses = computed(() => [
+  `ion-button ${props.color}`,
+  props.size,
+  props.shape,
+  { loading: props.loading },
+])
 </script>
 
 <style scoped lang="scss">
 .ion-button {
-  @apply flex items-center justify-center transition ease-in-out duration-150 w-full;
+  @apply w-full;
+}
+.ion-button::part(native) {
+  @apply flex items-center justify-center transition ease-in-out duration-150;
 
-  &--primary {
+  &.primary {
     @apply bg-blue-950 text-white hover:bg-blue-600;
   }
-  &--secondary {
+  &.secondary {
     @apply bg-gray-500 text-white hover:bg-gray-600;
   }
-  /* Add styles for other types as needed */
-  &--medium {
+  &.medium {
     @apply text-base;
   }
-  &--small {
+  &.small {
     @apply text-sm;
   }
-  &--large {
+  &.large {
     @apply text-lg;
   }
-  &--rounded {
+  &.rounded {
     @apply rounded-full;
   }
-  &--square {
+  &.square {
     @apply rounded-none;
   }
-  &--loading {
+  &.loading {
     @apply cursor-not-allowed opacity-50;
   }
 }
-
-.ion-button__spinner {
+.spinner {
   @apply animate-spin border-2 border-t-transparent border-white rounded-full h-4 w-4;
 }
 </style>
