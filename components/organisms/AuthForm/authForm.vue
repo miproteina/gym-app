@@ -34,8 +34,8 @@
 
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
-import Button from '~/components/atoms/Button/Button.vue'
-import Input from '~/components/atoms/InputField/InputField.vue'
+import Button from '@/components/atoms/Button/Button.vue'
+import Input from '@/components/atoms/InputField/InputField.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const userStore = useUserStore()

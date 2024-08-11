@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import AuthForm from '@/components/organisms/authForm.vue'
+import AuthForm from '@/components/organisms/AuthForm/authForm.vue'
 import Button from '@/components/atoms/Button/Button.vue'
 import { AppwriteException } from 'appwrite'
 import { useUserStore } from '@/stores/userStore'

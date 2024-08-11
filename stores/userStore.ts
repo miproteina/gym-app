@@ -8,8 +8,8 @@ export const useUserStore = defineStore(
   () => {
     const current = ref<Models.Session | null>(null) // Reference to current session
     const user = ref<Models.User<Models.Preferences> | null>(null) // Reference to current user object
-    const config = useRuntimeConfig()
-    const baseURL = config.public.baseURL
+    const baseURL = import.meta.env.VITE_BASE_URL
+
     /**
      * Registers a new user and logs them in.
      * @param email - User's email.
