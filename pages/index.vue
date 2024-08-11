@@ -43,6 +43,9 @@
             <ion-list>
               <ion-item v-for="(item, index) in exercises" :key="index">
                 <ion-label>{{ item.name }}</ion-label>
+                <ion-label v-for="category in item.categories" :key="category.$id">
+                  {{ category.name }}
+                </ion-label>
                 <template #end>
                   <ion-thumbnail>
                     <ion-img :src="assetsPath(item.$id)" />
@@ -73,7 +76,6 @@ const syncing = ref(false)
 // computed
 const userData = computed(() => userStore.user)
 const exercises: ComputedRef<ExerciseInterface[] | null> = computed(() => exerciseStore.exercises)
-
 // methods
 const logout = () => {
   userStore.logout()
