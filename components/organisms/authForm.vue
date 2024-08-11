@@ -19,6 +19,16 @@
 
     <Button color="primary" shape="rounded" type="submit" :label="submitType" @click="submitForm" />
     <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
+    <div v-if="submitType === 'Log In' || submitType === 'Sign Up'">
+      <p class="mt-4 text-center">Or login with:</p>
+      <Button
+        color="secondary"
+        shape="rounded"
+        type="button"
+        label="Login with Google"
+        @click="loginWithGoogle"
+      />
+    </div>
   </div>
 </template>
 
@@ -26,6 +36,9 @@
 import { defineProps, ref } from 'vue'
 import Button from '~/components/atoms/Button/Button.vue'
 import Input from '~/components/atoms/InputField/InputField.vue'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
 
 const props = defineProps<{
   handleSubmit: (data: { name: string; email: string; password: string }) => void
@@ -39,6 +52,10 @@ const password = ref('')
 
 const submitForm = () => {
   props.handleSubmit({ name: name.value, email: email.value, password: password.value })
+}
+
+const loginWithGoogle = async () => {
+  await userStore.loginWithGoogle()
 }
 </script>
 

@@ -94,6 +94,8 @@ const syncData = async () => {
 }
 
 onIonViewWillEnter(async () => {
+  await userStore.getCurrentSession()
+  await userStore.getCurrentUser()
   if (!userStore.current) {
     router.push('/login')
   }

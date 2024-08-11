@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { AppwriteException, ID, type Models } from 'appwrite'
+import { AppwriteException, ID, type Models, OAuthProvider } from 'appwrite'
 import { ref } from 'vue'
 import { account } from '@/utils/appwrite'
 
@@ -8,7 +8,8 @@ export const useUserStore = defineStore(
   () => {
     const current = ref<Models.Session | null>(null) // Reference to current session
     const user = ref<Models.User<Models.Preferences> | null>(null) // Reference to current user object
-
+    const config = useRuntimeConfig()
+    const baseURL = config.public.baseURL
     /**
      * Registers a new user and logs them in.
      * @param email - User's email.
@@ -64,7 +65,7 @@ export const useUserStore = defineStore(
 
     const resetPassword = async (email: string): Promise<void> => {
       try {
-        await account.createRecovery(email, 'http://localhost:3000/login')
+        await account.createRecovery(email, `${baseURL}/login`)
       } catch (e) {
         console.error('Reset password failed:', e)
         throw e // Re-throw the error for further handling
@@ -96,8 +97,15 @@ export const useUserStore = defineStore(
         console.error('Failed to get current session:', e)
         throw e // Re-throw the error for further handling
       }
+    }
 
-      getCurrentUser()
+    const loginWithGoogle = async () => {
+      try {
+        account.createOAuth2Session(OAuthProvider.Google, baseURL)
+      } catch (error) {
+        console.error('Error logging in with Google:', error)
+        throw error
+      }
     }
 
     return {
@@ -109,6 +117,7 @@ export const useUserStore = defineStore(
       resetPassword,
       getCurrentUser,
       getCurrentSession,
+      loginWithGoogle,
     }
   },
   { persist: true }
