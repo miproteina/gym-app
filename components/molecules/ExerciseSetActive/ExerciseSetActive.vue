@@ -60,12 +60,12 @@ function validateInteger(event: Event, field: 'firstNumber' | 'thirdNumber') {
 
 <style scoped>
 .exercise-set-active {
-  @apply flex items-center gap-2;
+  @apply grid grid-cols-5 gap-2;
 }
 
 .exercise-set-active__text {
   /* From tailwindcss: Use unprefixed utilities to target mobile, and override them at larger breakpoints */
-  @apply text-center w-32 lg:w-20;
+  @apply text-center w-12 content-center lg:w-56;
 }
 
 @media (max-width: 480px) {
