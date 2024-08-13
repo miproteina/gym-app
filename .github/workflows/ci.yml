@@ -8,6 +8,13 @@ on:
     branches:
       - main
 
+env:
+  VITE_APPWRITE_PROJECT_ID: ${{ secrets.VITE_APPWRITE_PROJECT_ID }}
+  VITE_APPWRITE_ENDPOINT: ${{ secrets.VITE_APPWRITE_ENDPOINT }}
+  VITE_APPWRITE_DB: ${{ secrets.VITE_APPWRITE_DB }}
+  VITE_APPWRITE_DB_EXERCISES: ${{ secrets.VITE_APPWRITE_DB_EXERCISES }}
+  VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+
 jobs:
   lint:
     name: Lint Code

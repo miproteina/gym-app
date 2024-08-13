@@ -8,10 +8,14 @@ const projectId: string = import.meta.env.VITE_APPWRITE_PROJECT_ID
 //databases
 export const databaseId: string = import.meta.env.VITE_APPWRITE_DB
 export const exercisesDatabaseId: string = import.meta.env.VITE_APPWRITE_DB_EXERCISES
+export const categoriesDatabaseId: string = import.meta.env.VITE_APPWRITE_DB_CATEGORIES
+export const routinesDatabaseId: string = import.meta.env.VITE_APPWRITE_DB_ROUTINES
+export const routinesExercisesDatabaseId: string = import.meta.env
+  .VITE_APPWRITE_DB_ROUTINES_EXERCISES
 
 if (!url || !projectId) {
   throw new Error(
-    'Please fill the NUXT_APPWRITE_ENDPOINT and NUXT_APPWRITE_PROJECT_ID env variables'
+    'Please fill the VITE_APPWRITE_ENDPOINT and VITE_APPWRITE_PROJECT_ID env variables'
   )
 }
 
