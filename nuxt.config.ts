@@ -27,5 +27,8 @@ export default defineNuxtConfig({
       endpoint: '',
       projectId: '',
     },
+    public: {
+      baseURL: process.env.BASE_URL,
+    },
   },
 }) as DefineNuxtConfig
