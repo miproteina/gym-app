@@ -12,12 +12,10 @@
         <ExerciseSetActive
           v-for="exercise in exerciseList"
           :key="exercise.id"
-          v-model:modelValue1="exercise.firstNumber"
-          v-model:modelValue2="exercise.secondNumber"
-          v-model:modelValue3="exercise.thirdNumber"
-          v-model:modelChecked="exercise.checked"
+          :exercise="exercise"
           :text="'Set ' + (exerciseList.indexOf(exercise) + 1)"
           :edit="edit"
+          @update:exercise="updateExercise(exercise.id, $event)"
         />
       </div>
     </div>
@@ -63,6 +61,14 @@ const addSet = () => {
     thirdNumber: '',
     checked: false,
   })
+}
+
+// Method to update exercise in the list
+const updateExercise = (id: number, updatedExercise: Exercise) => {
+  const index = exerciseList.value.findIndex(exercise => exercise.id === id)
+  if (index !== -1) {
+    exerciseList.value[index] = updatedExercise
+  }
 }
 </script>
 
