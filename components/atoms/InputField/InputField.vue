@@ -7,8 +7,9 @@
         :aria-labelledby="labelId"
         :icon="icon"
         :placeholder="placeholder"
+        :type="type"
         :disabled="disabled"
-        :value="value"
+        :value="modelValue"
         :aria-invalid="error ? 'true' : 'false'"
         :aria-describedby="error ? errorId : null"
         class="input-block__input"
@@ -22,26 +23,25 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from 'vue'
+import type { TextFieldTypes } from '@ionic/core'
 
 defineProps({
   label: {
     type: String,
-    required: true,
   },
   icon: {
     type: String,
     default: 'empty',
   },
   type: {
-    type: String,
+    type: String as () => TextFieldTypes,
     default: 'text',
   },
   placeholder: {
     type: String,
     required: false,
-    default: 'text',
   },
-  value: {
+  modelValue: {
     type: String,
     required: true,
   },
@@ -55,13 +55,13 @@ defineProps({
   },
 })
 
-const emits = defineEmits(['update:value', 'input', 'blur'])
+const emits = defineEmits(['update:modelValue', 'input', 'blur'])
 const labelId = ref(`input-label-${Math.random().toString(36).substr(2, 9)}`)
 const errorId = ref(`input-error-${Math.random().toString(36).substr(2, 9)}`)
 
 const handleInput = (event: Event) => {
   const input = event.target as HTMLInputElement
-  emits('update:value', input.value)
+  emits('update:modelValue', input.value)
   emits('input', event)
 }
 
@@ -80,11 +80,15 @@ const handleBlur = (event: Event) => {
 }
 
 .input-block__input-wrapper {
-  /* Element styles for input wrapper */
+  border-radius: 10px;
+  border: 2px solid #00000060;
+  padding-left: 10px;
 }
 
 .input-block__input {
   /* Element styles for input */
+  font-size: 1rem; /* Ensure input text size */
+  min-width: 4ch; /* Ensure input field is wide enough */
 }
 
 .input-block__input--disabled {
@@ -116,5 +120,11 @@ const handleBlur = (event: Event) => {
 
 .input-block__error {
   @apply text-red-500 text-sm mt-2;
+}
+
+@media (max-width: 480px) {
+  .input-block__input {
+    font-size: 0.8rem; /* Smaller size for small screens */
+  }
 }
 </style>

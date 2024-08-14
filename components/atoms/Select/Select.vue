@@ -1,25 +1,23 @@
 <template>
   <div class="select-component">
-    <ion-item>
-      <ion-label>{{ label }}</ion-label>
-      <ion-select
-        v-model="selectedValue"
-        :multiple="multiple"
-        :disabled="disabled"
-        :aria-disabled="disabled"
-        class="select-component__select"
-        :class="{
-          'select-component__select--disabled': disabled,
-          'select-component__select--error': error,
-        }"
-        :placeholder="placeholder"
-        @ion-change="handleChange"
-      >
-        <ion-select-option v-for="option in options" :key="option.value" :value="option.value">
-          {{ option.label }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+    <ion-select
+      v-model="selectedValue"
+      justify="space-between"
+      :multiple="multiple"
+      :disabled="disabled"
+      :aria-disabled="disabled"
+      class="select-component__select"
+      :class="{
+        'select-component__select--disabled': disabled,
+        'select-component__select--error': error,
+      }"
+      :placeholder="placeholder"
+      @ion-change="handleChange"
+    >
+      <ion-select-option v-for="option in options" :key="option.value" :value="option.value">
+        {{ option.label }}
+      </ion-select-option>
+    </ion-select>
   </div>
 </template>
 
@@ -56,6 +54,7 @@ export default {
       default: false,
     },
   },
+  emits: ['change'],
   data() {
     return {
       selectedValue: this.value || (this.multiple ? [] : ''),
@@ -71,8 +70,7 @@ export default {
   },
   methods: {
     handleChange(event) {
-      this.selectedValue = event.detail.value
-      this.$emit('change', this.selectedValue)
+      this.$emit('change', event.target.selectedValue)
     },
   },
 }
@@ -80,24 +78,22 @@ export default {
 
 <style scoped>
 .select-component {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 }
 
-.select-component__label {
-  margin-bottom: 8px;
+.select-component__select {
+  @apply rounded-lg border-2 border-black/60 p-0.5 pl-2.5 pr-6;
 }
 
 .select-component__select--disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+  @apply border-slate-400 cursor-not-allowed;
 }
 
 .select-component__select--error {
-  border-color: #ff4d4f;
+  @apply border-red-400;
 }
 
 .select-component__select:focus {
-  border-color: #40a9ff;
+  @apply border-blue-300;
 }
 </style>
