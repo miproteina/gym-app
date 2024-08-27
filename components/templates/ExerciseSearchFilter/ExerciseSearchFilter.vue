@@ -10,25 +10,20 @@
       </ul>
     </div>
 
-    <!-- Search Input -->
-    <input
+    <Input
       v-model="searchQuery"
       type="text"
       placeholder="Search exercises by name"
-      class="search-input"
       @input="updateSearch"
     />
 
-    <!-- Filter Dropdowns -->
     <div class="filters">
-      <select v-model="selectedBodyPart" @change="updateFilters">
-        <option value="">All Body Parts</option>
-        <option v-for="part in bodyParts" :key="part" :value="part">
-          {{ part }}
-        </option>
-      </select>
-
-      <select v-model="selectedCategory" @change="updateFilters">
+      <SelectField
+        v-model="selectedBodyPart"
+        :options="bodyPartOptions"
+        placeholder="All Body Parts"
+      />
+      <select v-model="selectedCategory">
         <option value="">All Categories</option>
         <option v-for="category in categories" :key="category" :value="category">
           {{ category }}
@@ -47,6 +42,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import Input from '../../atoms/InputField/InputField.vue'
+import SelectField from '../../atoms/Select/Select.vue'
 
 const props = defineProps({
   exercises: {
@@ -65,12 +62,22 @@ const bodyParts = computed(() => {
   return Array.from(parts).sort()
 })
 
+const bodyPartOptions = computed(() => [
+  { value: '', label: 'All Body Parts' },
+  ...bodyParts.value.map(part => ({ value: part, label: part })),
+])
+
 const categories = computed(() => {
   const cats = new Set(props.exercises.map(ex => ex.category))
   return Array.from(cats).sort()
 })
 
 const filteredExercises = computed(() => {
+  console.log('Filtering with:', {
+    selectedBodyPart: selectedBodyPart.value,
+    selectedCategory: selectedCategory.value,
+    searchQuery: searchQuery.value,
+  })
   return props.exercises
     .filter(exercise => {
       return (
@@ -81,16 +88,6 @@ const filteredExercises = computed(() => {
     })
     .sort((a, b) => a.exerciseName.localeCompare(b.exerciseName))
 })
-
-function updateSearch() {
-  if (searchQuery.value && !recentSearches.value.includes(searchQuery.value)) {
-    recentSearches.value.push(searchQuery.value)
-  }
-}
-
-function updateFilters() {
-  // This will automatically update the filteredExercises computed property
-}
 
 function applyRecentSearch(search) {
   searchQuery.value = search
