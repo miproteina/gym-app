@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     handleChange(event) {
-      this.$emit('change', event.target.selectedValue)
+      this.$emit('change', event.target.value)
     },
   },
 }

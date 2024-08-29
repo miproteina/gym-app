@@ -4,7 +4,12 @@
     <div v-if="recentSearches.length" class="recent-searches">
       <h3>Recent Searches</h3>
       <ul>
-        <li v-for="search in recentSearches" :key="search" @click="applyRecentSearch(search)">
+        <li
+          v-for="search in recentSearches"
+          :key="search"
+          :aria-label="'Search for ' + search"
+          @click="applyRecentSearch(search)"
+        >
           {{ search }}
         </li>
       </ul>
@@ -14,26 +19,35 @@
       v-model="searchQuery"
       type="text"
       placeholder="Search exercises by name"
+      aria-label="Search exercises"
       @input="updateSearch"
     />
 
     <div class="filters">
       <SelectField
-        v-model="selectedBodyPart"
+        :value="selectedBodyPart"
         :options="bodyPartOptions"
         placeholder="All Body Parts"
+        aria-label="Filter by body part"
+        @change="updateBodyData"
       />
-      <select v-model="selectedCategory">
-        <option value="">All Categories</option>
-        <option v-for="category in categories" :key="category" :value="category">
-          {{ category }}
-        </option>
-      </select>
+      <SelectField
+        :value="selectedCategory"
+        :options="categoryOptions"
+        placeholder="All Categories"
+        aria-label="Filter by category"
+        @change="updateCategoryData"
+      />
     </div>
 
     <!-- Filtered Exercises List -->
     <ul class="exercise-list">
-      <li v-for="exercise in filteredExercises" :key="exercise.exerciseName">
+      <li
+        v-for="exercise in filteredExercises"
+        :key="exercise.exerciseName"
+        :aria-label="'Exercise: ' + exercise.exerciseName"
+        @click="handleExerciseClick(exercise.exerciseName)"
+      >
         {{ exercise.exerciseName }}
       </li>
     </ul>
@@ -72,6 +86,11 @@ const categories = computed(() => {
   return Array.from(cats).sort()
 })
 
+const categoryOptions = computed(() => [
+  { value: '', label: 'All Categories' },
+  ...categories.value.map(part => ({ value: part, label: part })),
+])
+
 const filteredExercises = computed(() => {
   console.log('Filtering with:', {
     selectedBodyPart: selectedBodyPart.value,
@@ -89,9 +108,25 @@ const filteredExercises = computed(() => {
     .sort((a, b) => a.exerciseName.localeCompare(b.exerciseName))
 })
 
+const updateBodyData = $data => (selectedBodyPart.value = $data)
+const updateCategoryData = $data => (selectedCategory.value = $data)
+
 function applyRecentSearch(search) {
   searchQuery.value = search
-  updateSearch()
+}
+
+function handleExerciseClick(exerciseName) {
+  searchQuery.value = exerciseName // Update the search query with the clicked exercise
+  // Check if the exercise name is already in recentSearches
+  const index = recentSearches.value.indexOf(exerciseName)
+
+  // If it exists, remove it from its current position
+  if (index !== -1) {
+    recentSearches.value.splice(index, 1)
+  }
+
+  // Push the exercise name to the top of the list
+  recentSearches.value.unshift(exerciseName)
 }
 </script>
 

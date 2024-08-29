@@ -1,7 +1,7 @@
 import ExerciseSearchFilter from './ExerciseSearchFilter.vue'
 
 export default {
-  title: 'Components/ExerciseSearchFilter',
+  title: 'Templates/ExerciseSearchFilter',
   component: ExerciseSearchFilter,
 }
 
@@ -16,30 +16,6 @@ const Template = args => ({
 // Default state with all exercises
 export const Default = Template.bind({})
 Default.args = {
-  exercises: [
-    { exerciseName: 'Push-Up', bodyPart: 'Chest', category: 'Strength' },
-    { exerciseName: 'Pull-Up', bodyPart: 'Back', category: 'Strength' },
-    { exerciseName: 'Squat', bodyPart: 'Legs', category: 'Strength' },
-    { exerciseName: 'Running', bodyPart: 'Legs', category: 'Cardio' },
-    { exerciseName: 'Bench Press', bodyPart: 'Chest', category: 'Strength' },
-  ],
-}
-
-// State with pre-filled recent searches
-export const WithRecentSearches = Template.bind({})
-WithRecentSearches.args = {
-  exercises: [
-    { exerciseName: 'Push-Up', bodyPart: 'Chest', category: 'Strength' },
-    { exerciseName: 'Pull-Up', bodyPart: 'Back', category: 'Strength' },
-    { exerciseName: 'Squat', bodyPart: 'Legs', category: 'Strength' },
-    { exerciseName: 'Running', bodyPart: 'Legs', category: 'Cardio' },
-    { exerciseName: 'Bench Press', bodyPart: 'Chest', category: 'Strength' },
-  ],
-}
-
-// State with exercises filtered by category
-export const FilteredByCategory = Template.bind({})
-FilteredByCategory.args = {
   exercises: [
     { exerciseName: 'Push-Up', bodyPart: 'Chest', category: 'Strength' },
     { exerciseName: 'Pull-Up', bodyPart: 'Back', category: 'Strength' },
