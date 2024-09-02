@@ -1,38 +1,41 @@
 <template>
   <div class="exercise-active-header">
-    <button
-      class="exercise-active-header__button exercise-active-header__button--clock"
+    <Button
+      class="exercise-active-header__button"
+      :size="'medium'"
+      :label="'X'"
+      aria-label="Close"
       @click="openTimerModal"
-    >
-      <ion-icon name="time-outline" />
-    </button>
+    />
     <span class="exercise-active-header__timer">{{ timer }}</span>
-    <button
-      class="exercise-active-header__button exercise-active-header__button--finish"
+    <Button
+      :class="['exercise-active-header__button', 'exercise-active-header__button--finish']"
+      :size="'medium'"
+      :label="'Finish'"
       @click="finishWorkout"
-    >
-      Finish
-    </button>
+    />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ExerciseActiveHeader',
-  props: {
-    timer: {
-      type: String,
-      required: true,
-    },
+<script setup lang="ts">
+import Button from '../../atoms/Button/Button.vue'
+
+defineProps({
+  timer: {
+    type: String,
+    required: true,
   },
-  methods: {
-    openTimerModal() {
-      this.$emit('open-timer-modal')
-    },
-    finishWorkout() {
-      this.$emit('finish-workout')
-    },
-  },
+})
+
+const emit = defineEmits(['open-timer-modal', 'finish-workout'])
+
+const openTimerModal = () => {
+  emit('open-timer-modal')
+  console.log('testing opentimer')
+}
+
+const finishWorkout = () => {
+  emit('finish-workout')
 }
 </script>
 
