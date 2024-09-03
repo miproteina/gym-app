@@ -40,8 +40,6 @@ export default defineComponent({
 
 <style scoped>
 .exercise-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  @apply flex flex-col gap-4;
 }
 </style>
