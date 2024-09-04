@@ -14,7 +14,7 @@ describe('ExerciseActiveHeader.vue', () => {
     const wrapper = shallowMount(ExerciseActiveHeader, {
       props: { timer: '12:35' },
     })
-    await wrapper.find('.exercise-active-header__button--clock').trigger('click')
+    await wrapper.find('[data-test="open-timer-modal"]').trigger('click')
     expect(wrapper.emitted('open-timer-modal')).toBeTruthy()
   })
 

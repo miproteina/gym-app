@@ -2,15 +2,16 @@
   <div class="exercise-active-header">
     <Button
       class="exercise-active-header__button"
-      :size="'medium'"
+      :size="'small'"
       :label="'X'"
       aria-label="Close"
+      data-test="open-timer-modal"
       @click="openTimerModal"
     />
     <span class="exercise-active-header__timer">{{ timer }}</span>
     <Button
       :class="['exercise-active-header__button', 'exercise-active-header__button--finish']"
-      :size="'medium'"
+      :size="'small'"
       :label="'Finish'"
       @click="finishWorkout"
     />
@@ -66,7 +67,6 @@ const finishWorkout = () => {
 }
 
 .exercise-active-header__button--finish {
-  background-color: #000;
   color: #fff;
 }
 
