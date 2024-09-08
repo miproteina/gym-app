@@ -20,7 +20,17 @@ const Template = args => ({
 
 export const Default = Template.bind({})
 Default.args = {
+  exerciseId: '6692b7b30029875c4206',
   exerciseName: 'Name',
-  categoryName: 'Category',
-  imageUrl: '/path/to/image.png',
+  categories: [
+    {
+      $id: '1',
+      name: 'Category',
+    },
+    {
+      $id: '2',
+      name: 'Category 2',
+    },
+  ],
+  imageUrl: '6692b7b30029875c4206.webp',
 }

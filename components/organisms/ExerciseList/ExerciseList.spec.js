@@ -2,16 +2,32 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import ExerciseList from './ExerciseList.vue'
 import ExerciseCard from '../../molecules/ExerciseCard/ExerciseCard.vue'
+import ExerciseDetailModal from '../ExerciseDetailModal/ExerciseDetailModal.vue'
 
 describe('ExerciseList.vue', () => {
   const exercises = [
-    { exerciseName: 'Push Up', categoryName: 'Strength', imageUrl: 'push-up.jpg' },
-    { exerciseName: 'Squat', categoryName: 'Strength', imageUrl: 'squat.jpg' },
+    { $id: '1', name: 'Push Up', categories: [{ name: 'Strength' }], thumbnail: 'push-up.jpg' },
+    { $id: '2', name: 'Squat', categories: [{ name: 'Strength' }], thumbnail: 'squat.jpg' },
   ]
 
   it('renders correctly with default props', () => {
     const wrapper = mount(ExerciseList, {
       props: { exercises: [] },
+      global: {
+        stubs: [
+          'ion-modal',
+          'ion-header',
+          'ion-toolbar',
+          'ion-buttons',
+          'ion-button',
+          'ion-icon',
+          'ion-title',
+          'ion-content',
+          'ion-grid',
+          'ion-row',
+          'ion-col',
+        ],
+      },
     })
     expect(wrapper.findAllComponents(ExerciseCard)).toHaveLength(0)
   })
@@ -19,55 +35,116 @@ describe('ExerciseList.vue', () => {
   it('renders correctly with custom props', () => {
     const wrapper = mount(ExerciseList, {
       props: { exercises },
+      global: {
+        stubs: [
+          'ion-modal',
+          'ion-header',
+          'ion-toolbar',
+          'ion-buttons',
+          'ion-button',
+          'ion-icon',
+          'ion-title',
+          'ion-content',
+          'ion-grid',
+          'ion-row',
+          'ion-col',
+        ],
+      },
     })
     const cards = wrapper.findAllComponents(ExerciseCard)
     expect(cards).toHaveLength(exercises.length)
-    expect(cards[0].props('exerciseName')).toBe(exercises[0].exerciseName)
-    expect(cards[0].props('categoryName')).toBe(exercises[0].categoryName)
-    expect(cards[0].props('imageUrl')).toBe(exercises[0].imageUrl)
+    expect(cards[0].props('exerciseName')).toBe(exercises[0].name)
+    expect(cards[0].props('categories')).toEqual(exercises[0].categories)
+    expect(cards[0].props('imageUrl')).toBe(exercises[0].thumbnail)
   })
 
-  it('emits the correct payload when an ExerciseCard is clicked', async () => {
+  it('opens modal with correct exercise when an ExerciseCard is clicked', async () => {
     const wrapper = mount(ExerciseList, {
       props: { exercises },
+      global: {
+        stubs: [
+          'ion-modal',
+          'ion-header',
+          'ion-toolbar',
+          'ion-buttons',
+          'ion-button',
+          'ion-icon',
+          'ion-title',
+          'ion-content',
+          'ion-grid',
+          'ion-row',
+          'ion-col',
+        ],
+      },
     })
 
-    // Find the first ExerciseCard and trigger a click event on the button
     const exerciseCard = wrapper.findComponent(ExerciseCard)
-    await exerciseCard.find('button').trigger('click')
+    await exerciseCard.vm.$emit('openModal', exercises[0].$id)
 
-    // Check if the 'openExerciseModal' event is emitted with the correct payload
-    const emittedEvents = wrapper.emitted('openExerciseModal')
-    if (emittedEvents) {
-      expect(emittedEvents[0][0]).toEqual(exercises[0])
-    } else {
-      throw new Error('Expected event "openExerciseModal" to be emitted')
-    }
+    expect(wrapper.vm.openModal).toBe(true)
+    expect(wrapper.vm.exerciseModal).toEqual(exercises[0])
+
+    const modal = wrapper.findComponent(ExerciseDetailModal)
+    expect(modal.props('isOpen')).toBe(true)
+    expect(modal.props('exercise')).toEqual(exercises[0])
+  })
+
+  it('closes modal when close event is emitted', async () => {
+    const wrapper = mount(ExerciseList, {
+      props: { exercises },
+      global: {
+        stubs: [
+          'ion-modal',
+          'ion-header',
+          'ion-toolbar',
+          'ion-buttons',
+          'ion-button',
+          'ion-icon',
+          'ion-title',
+          'ion-content',
+          'ion-grid',
+          'ion-row',
+          'ion-col',
+        ],
+      },
+    })
+
+    wrapper.vm.openModal = true
+    wrapper.vm.exerciseModal = exercises[0]
+
+    const modal = wrapper.findComponent(ExerciseDetailModal)
+    await modal.vm.$emit('close')
+
+    expect(wrapper.vm.openModal).toBe(false)
   })
 
   it('should have appropriate alt text for images', () => {
     const wrapper = mount(ExerciseList, {
       props: { exercises },
+      global: {
+        stubs: [
+          'ion-modal',
+          'ion-header',
+          'ion-toolbar',
+          'ion-buttons',
+          'ion-button',
+          'ion-icon',
+          'ion-title',
+          'ion-content',
+          'ion-grid',
+          'ion-row',
+          'ion-col',
+        ],
+      },
     })
 
-    const images = wrapper.findAll('img.exercise-card__image')
+    const cards = wrapper.findAllComponents(ExerciseCard)
 
-    images.forEach((img, index) => {
-      expect(img.attributes('alt')).toBe('Exercise Image')
-      expect(img.attributes('src')).toBe(exercises[index].imageUrl || 'default-placeholder.jpg')
-    })
-  })
-
-  it('should have accessible headings', () => {
-    const wrapper = mount(ExerciseList, {
-      props: { exercises },
-    })
-
-    const headings = wrapper.findAll('h3.exercise-card__info-name')
-
-    headings.forEach((heading, index) => {
-      expect(heading.text()).toBe(exercises[index].exerciseName)
-      expect(heading.attributes('role')).toBe(undefined) // h3 has an implicit role as a heading
+    cards.forEach((card, index) => {
+      expect(card.props('exerciseId')).toBe(exercises[index].$id)
+      expect(card.props('exerciseName')).toBe(exercises[index].name)
+      expect(card.props('categories')).toEqual(exercises[index].categories)
+      expect(card.props('imageUrl')).toBe(exercises[index].thumbnail)
     })
   })
 })

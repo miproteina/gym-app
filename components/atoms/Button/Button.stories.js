@@ -49,7 +49,7 @@ export const Primary = Template.bind({})
 Primary.args = {
   label: 'Primary',
   color: 'primary',
-  size: 'medium',
+  size: 'default',
   shape: 'square',
   disabled: false,
   loading: false,

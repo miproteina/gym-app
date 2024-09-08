@@ -1,20 +1,15 @@
 <template>
   <div class="exercise-active-header">
     <Button
-      class="exercise-active-header__button"
-      :size="'small'"
-      :label="'X'"
+      ref="openTimerButton"
+      color="primary"
+      size="small"
+      :icon="ioniconsCloseCircle"
       aria-label="Close"
-      data-test="open-timer-modal"
       @click="openTimerModal"
     />
     <span class="exercise-active-header__timer">{{ timer }}</span>
-    <Button
-      :class="['exercise-active-header__button', 'exercise-active-header__button--finish']"
-      :size="'small'"
-      :label="'Finish'"
-      @click="finishWorkout"
-    />
+    <Button ref="finishButton" size="small" color="danger" label="Finish" @click="finishWorkout" />
   </div>
 </template>
 

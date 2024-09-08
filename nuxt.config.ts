@@ -3,6 +3,12 @@ import type { DefineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   css: ['~/assets/css/tailwind.css'],
   devtools: { enabled: true },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
   modules: [
     '@nuxtjs/ionic',
     '@nuxt/test-utils/module',
