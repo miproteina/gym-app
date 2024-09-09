@@ -22,37 +22,15 @@
         </ion-row>
         <ion-row>
           <ion-col size="6">
-            <ion-button expand="full" :disabled="syncing" @click="syncData">
-              <template #start>
-                <ion-icon name="sync-outline" />
-              </template>
-              {{ syncing ? 'Sincronizando...' : 'Sincronizar Datos' }}
-            </ion-button>
+            <Button :label="syncingText" :disabled="syncing" @click="syncData" />
           </ion-col>
           <ion-col size="6">
-            <ion-button expand="full" color="danger" @click="logout">
-              <template #start>
-                <ion-icon name="log-out-outline" />
-              </template>
-              Logout
-            </ion-button>
+            <Button color="danger" label="Logout" @click="logout" />
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="12">
-            <ion-list>
-              <ion-item v-for="(item, index) in exercises" :key="index">
-                <ion-label>{{ item.name }}</ion-label>
-                <ion-label v-for="category in item.categories" :key="category.$id">
-                  {{ category.name }}
-                </ion-label>
-                <template #end>
-                  <ion-thumbnail>
-                    <ion-img :src="assetsPath(item.$id)" />
-                  </ion-thumbnail>
-                </template>
-              </ion-item>
-            </ion-list>
+            <ExerciseList :exercises="exercises" />
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -65,7 +43,6 @@ import { computed, ref, type ComputedRef } from 'vue'
 import { useIonRouter, onIonViewWillEnter } from '@ionic/vue'
 import { useUserStore } from '~/stores/userStore'
 import { useExerciseStore } from '~/stores/exerciseStore'
-import { assetsPath } from '@/utils/utils'
 import type { ExerciseInterface } from '@/utils/types'
 
 const userStore = useUserStore()
@@ -75,6 +52,7 @@ const syncing = ref(false)
 
 // computed
 const userData = computed(() => userStore.user)
+const syncingText = computed(() => (syncing.value ? 'Sincronizando...' : 'Sincronizar Datos'))
 const exercises: ComputedRef<ExerciseInterface[] | null> = computed(() => exerciseStore.exercises)
 // methods
 const logout = () => {
