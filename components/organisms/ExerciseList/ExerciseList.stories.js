@@ -22,19 +22,19 @@ export const Default = Template.bind({})
 Default.args = {
   exercises: [
     {
-      exerciseName: 'Push-up',
-      categoryName: 'Upper Body',
-      imageUrl: 'https://example.com/push-up.jpg',
-    },
-    {
-      exerciseName: 'Squat',
-      categoryName: 'Lower Body',
-      imageUrl: 'https://example.com/squat.jpg',
-    },
-    {
-      exerciseName: 'Plank',
-      categoryName: 'Core',
-      imageUrl: 'https://example.com/plank.jpg',
+      exerciseId: '6692b7b30029875c4206',
+      name: 'Testing name',
+      categories: [
+        {
+          $id: '1',
+          name: 'Chest',
+        },
+        {
+          $id: '2',
+          name: 'Back',
+        },
+      ],
+      imageUrl: '6692b7b30029875c4206.webp',
     },
   ],
 }
@@ -44,34 +44,38 @@ Empty.args = {
   exercises: [],
 }
 
-export const LongList = Template.bind({})
-LongList.args = {
+export const Multiple = Template.bind({})
+Multiple.args = {
   exercises: [
     {
-      exerciseName: 'Push-up',
-      categoryName: 'Upper Body',
-      imageUrl: 'https://example.com/push-up.jpg',
+      exerciseId: '6692b7b30029875c4206',
+      name: 'Testing name',
+      categories: [
+        {
+          $id: '1',
+          name: 'Chest',
+        },
+        {
+          $id: '2',
+          name: 'Back',
+        },
+      ],
+      imageUrl: '6692b7b30029875c4206.webp',
     },
     {
-      exerciseName: 'Squat',
-      categoryName: 'Lower Body',
-      imageUrl: 'https://example.com/squat.jpg',
-    },
-    { exerciseName: 'Plank', categoryName: 'Core', imageUrl: 'https://example.com/plank.jpg' },
-    {
-      exerciseName: 'Burpee',
-      categoryName: 'Full Body',
-      imageUrl: 'https://example.com/burpee.jpg',
-    },
-    {
-      exerciseName: 'Lunges',
-      categoryName: 'Lower Body',
-      imageUrl: 'https://example.com/lunges.jpg',
-    },
-    {
-      exerciseName: 'Mountain Climbers',
-      categoryName: 'Cardio',
-      imageUrl: 'https://example.com/mountain-climbers.jpg',
+      exerciseId: '330230430bab',
+      name: 'Testing name 2',
+      categories: [
+        {
+          $id: '1',
+          name: 'Chest',
+        },
+        {
+          $id: '2',
+          name: 'Back',
+        },
+      ],
+      imageUrl: '330230430bab.webp',
     },
   ],
 }

@@ -1,13 +1,14 @@
 <template>
   <div class="exercise-search-filter">
     <!-- Recent Searches -->
-    <div v-if="recentSearches.length" class="recent-searches">
+    <div v-if="recentSearches.length" class="exercise-search-filter__recent-searches">
       <h3>Recent Searches</h3>
       <ul>
         <li
           v-for="search in recentSearches"
           :key="search"
           :aria-label="'Search for ' + search"
+          class="exercise-search-filter__list-item"
           @click="applyRecentSearch(search)"
         >
           {{ search }}
@@ -20,15 +21,17 @@
       type="text"
       placeholder="Search exercises by name"
       aria-label="Search exercises"
+      class="exercise-search-filter__search-input"
       @input="updateSearch"
     />
 
-    <div class="filters">
+    <div class="exercise-search-filter__filters">
       <SelectField
         :value="selectedBodyPart"
         :options="bodyPartOptions"
         placeholder="All Body Parts"
         aria-label="Filter by body part"
+        class="exercise-search-filter__filters-select"
         @change="updateBodyData"
       />
       <SelectField
@@ -36,16 +39,18 @@
         :options="categoryOptions"
         placeholder="All Categories"
         aria-label="Filter by category"
+        class="exercise-search-filter__filters-select"
         @change="updateCategoryData"
       />
     </div>
 
     <!-- Filtered Exercises List -->
-    <ul class="exercise-list">
+    <ul class="exercise-search-filter__list">
       <li
         v-for="exercise in filteredExercises"
         :key="exercise.exerciseName"
         :aria-label="'Exercise: ' + exercise.exerciseName"
+        class="exercise-search-filter__list-item"
         @click="handleExerciseClick(exercise.exerciseName)"
       >
         {{ exercise.exerciseName }}
@@ -130,41 +135,37 @@ function handleExerciseClick(exerciseName) {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .exercise-search-filter {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
 
-.recent-searches {
-  margin-bottom: 1rem;
-}
+  &__recent-searches {
+    margin-bottom: 1rem;
+  }
 
-.search-input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+  &__search-input {
+    padding: 0.5rem;
+  }
 
-.filters {
-  display: flex;
-  gap: 1rem;
-}
+  &__filters {
+    display: flex;
+    gap: 1rem;
 
-.filters select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+    &-select {
+      padding: 0.5rem;
+    }
+  }
 
-.exercise-list {
-  list-style-type: none;
-  padding: 0;
-}
+  &__list {
+    list-style-type: none;
+    padding: 0;
 
-.exercise-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+    &-item {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+  }
 }
 </style>

@@ -26,12 +26,12 @@ describe('ExerciseSearchFilter.vue', () => {
       },
     })
 
-    expect(localWrapper.find('.recent-searches').exists()).toBe(false)
-    expect(localWrapper.find('.exercise-list').exists()).toBe(true)
+    expect(localWrapper.find('.exercise-search-filter__recent-searches').exists()).toBe(false)
+    expect(localWrapper.find('.exercise-search-filter__list').exists()).toBe(true)
   })
 
   it('renders correctly with custom props', () => {
-    expect(wrapper.findAll('.exercise-list li').length).toBe(2)
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(2)
   })
 
   // Test search input functionality
@@ -40,7 +40,7 @@ describe('ExerciseSearchFilter.vue', () => {
     await input.setValue('Push-Up')
 
     expect(wrapper.vm.searchQuery).toBe('Push-Up')
-    expect(wrapper.findAll('.exercise-list li').length).toBe(1)
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(1)
   })
 
   // Test select dropdown functionality
@@ -49,7 +49,7 @@ describe('ExerciseSearchFilter.vue', () => {
     await selectField.vm.$emit('change', 'Legs')
 
     expect(wrapper.vm.selectedBodyPart).toBe('Legs')
-    expect(wrapper.findAll('.exercise-list li').length).toBe(1)
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(1)
   })
 
   it('filters exercises by category', async () => {
@@ -72,8 +72,8 @@ describe('ExerciseSearchFilter.vue', () => {
     await wrapper.vm.$nextTick()
 
     // Check the filtered results
-    expect(wrapper.findAll('.exercise-list li').length).toBe(1)
-    expect(wrapper.find('.exercise-list li').text()).toBe('Squat')
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(1)
+    expect(wrapper.find('.exercise-search-filter__list li').text()).toBe('Squat')
   })
 
   // Test recent searches
@@ -82,8 +82,8 @@ describe('ExerciseSearchFilter.vue', () => {
     await input.setValue('Push-Up')
 
     expect(wrapper.vm.searchQuery).toBe('Push-Up')
-    expect(wrapper.findAll('.exercise-list li').length).toBe(1)
-    expect(wrapper.find('.exercise-list li').text()).toBe('Push-Up')
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(1)
+    expect(wrapper.find('.exercise-search-filter__list li').text()).toBe('Push-Up')
   })
 
   // Test filtering functionality
@@ -92,8 +92,8 @@ describe('ExerciseSearchFilter.vue', () => {
     await wrapper.findAllComponents(SelectField).at(0).vm.$emit('change', 'Chest')
     await wrapper.findAllComponents(SelectField).at(1).vm.$emit('change', 'Strength')
 
-    expect(wrapper.findAll('.exercise-list li').length).toBe(1)
-    expect(wrapper.find('.exercise-list li').text()).toBe('Push-Up')
+    expect(wrapper.findAll('.exercise-search-filter__list li').length).toBe(1)
+    expect(wrapper.find('.exercise-search-filter__list li').text()).toBe('Push-Up')
   })
 
   // Test accessibility
