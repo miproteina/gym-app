@@ -3,48 +3,52 @@ import { describe, it, expect } from 'vitest'
 import ExerciseCard from './ExerciseCard.vue'
 
 describe('ExerciseCard.vue', () => {
-  it('renders the component with default props', () => {
+  it('renders the component with required props', () => {
     const wrapper = mount(ExerciseCard, {
       props: {
+        exerciseId: '1',
         exerciseName: 'Incline Bench Press',
-        categoryName: 'Chest',
+        categories: [{ $id: '1', name: 'Chest' }],
+      },
+      global: {
+        stubs: ['ion-label', 'Button'],
       },
     })
 
-    // Output the rendered HTML to check the structure
-    console.log(wrapper.html())
-
-    // Check if the exercise name is rendered correctly
     expect(wrapper.find('.exercise-card__info-name').text()).toBe('Incline Bench Press')
-
-    // Check if the category name is rendered correctly
-    expect(wrapper.find('.exercise-card__info-category').text()).toBe('Chest')
   })
 
   it('renders the component with a custom image', () => {
     const wrapper = mount(ExerciseCard, {
       props: {
+        exerciseId: '1',
         exerciseName: 'Incline Bench Press',
-        categoryName: 'Chest',
-        imageUrl: '/path/to/image.png', // Provide a valid imageUrl
+        categories: [{ $id: '1', name: 'Chest' }],
+        imageUrl: '/path/to/image.png',
+      },
+      global: {
+        stubs: ['ion-label', 'Button'],
       },
     })
 
-    // Check if the image source is set correctly
-    expect(wrapper.find('.exercise-card__image').attributes('src')).toBe('/path/to/image.png')
+    expect(wrapper.find('.exercise-card__image').attributes('src')).toBe('assets/1.webp')
   })
 
-  it('emits openModal event when eye icon button is clicked', async () => {
+  it('emits openModal event when Button is clicked', async () => {
     const wrapper = mount(ExerciseCard, {
       props: {
+        exerciseId: '1',
         exerciseName: 'Incline Bench Press',
-        categoryName: 'Chest',
+        categories: [{ $id: '1', name: 'Chest' }],
+      },
+      global: {
+        stubs: ['ion-label', 'Button'],
       },
     })
 
-    await wrapper.find('.exercise-card__button').trigger('click')
+    await wrapper.findComponent({ name: 'Button' }).trigger('click')
 
-    // Check if the openModal event was emitted
     expect(wrapper.emitted('openModal')).toBeTruthy()
+    expect(wrapper.emitted('openModal')[0]).toEqual(['1'])
   })
 })

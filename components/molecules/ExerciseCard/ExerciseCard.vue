@@ -1,13 +1,23 @@
 <template>
   <div class="exercise-card">
-    <img :src="imageUrl || placeholderImage" alt="Exercise Image" class="exercise-card__image" />
+    <img
+      :src="assetsPath(exerciseId) || assetsPath(placeholderImage)"
+      alt="Exercise Image"
+      class="exercise-card__image"
+    />
     <div class="exercise-card__info">
       <h3 class="exercise-card__info-name">{{ exerciseName }}</h3>
-      <p class="exercise-card__info-category">{{ categoryName }}</p>
+      <ion-label
+        v-for="category in categories"
+        :key="category.$id"
+        class="exercise-card__info-category"
+      >
+        {{ category.name }}
+      </ion-label>
     </div>
-    <button class="exercise-card__button" @click="openModal">
-      <ion-icon name="eye-outline" />
-    </button>
+    <div>
+      <Button color="light" size="small" :icon="ioniconsEyeOutline" @click="openModal" />
+    </div>
   </div>
 </template>
 
@@ -15,12 +25,16 @@
 export default {
   name: 'ExerciseCard',
   props: {
+    exerciseId: {
+      type: String,
+      required: true,
+    },
     exerciseName: {
       type: String,
       required: true,
     },
-    categoryName: {
-      type: String,
+    categories: {
+      type: Array,
       required: true,
     },
     imageUrl: {
@@ -31,12 +45,16 @@ export default {
   emits: ['openModal'],
   data() {
     return {
-      placeholderImage: '/path/to/placeholder.png', // Replace with actual placeholder image path
+      placeholderImage: '6692b7b30029875c4206.webp', // Replace with actual placeholder image path
     }
   },
   methods: {
     openModal() {
-      this.$emit('openModal')
+      console.log('openModal', this.exerciseId)
+      this.$emit('openModal', this.exerciseId)
+    },
+    assetsPath(path = 'placeholder') {
+      return `assets/${path}.webp`
     },
   },
 }
@@ -71,6 +89,7 @@ export default {
 .exercise-card__info-category {
   font-size: 0.9em;
   color: #666;
+  padding-right: 5px;
 }
 
 .exercise-card__button {
